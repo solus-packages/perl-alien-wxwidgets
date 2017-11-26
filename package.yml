@@ -1,0 +1,24 @@
+name       : perl-alien-wxwidgets
+version    : 0.69
+release    : 1
+source     :
+    - http://search.cpan.org/CPAN/authors/id/M/MD/MDOOTSON/Alien-wxWidgets-0.69.tar.gz : 53224e4bbbefff4cf7b63ed9a62963893b9ffd4965d70d96710348f8676de249
+license    : Artistic-1.0-Perl
+component  : programming.perl
+summary    : Perl module for building, finding and using wxWidgets binaries
+description: |
+    Perl module for building, finding and using wxWidgets binaries
+builddeps  :
+    - perl-lwp-protocol-https
+    - perl-module-build
+    - perl-module-pluggable
+    - wxwidgets2.8-devel
+setup      : |
+    sed -i "s|/wx-config\$/|/wx-config.*/|" Build.PL
+    export WX_CONFIG=wx-config-2.8
+    echo "no" | perl Build.PL installdirs=vendor create_packlist=0
+build      : |
+    export WX_CONFIG=wx-config-2.8
+    %perl_build
+install    : |
+    %perl_install
